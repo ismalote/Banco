@@ -90,7 +90,7 @@ public class Banco
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null){
 			CajaAhorroPesos cap = new CajaAhorroPesos(cliente, interes, comision);
-			cuentas.add(cap);
+			cuentas.add(cap);			
 		}
 	}
 	
@@ -183,6 +183,43 @@ public class Banco
 			cv = cliente.getView();
 		}		
 		return cv;
+	}
+	
+	public CuentaView buscarDatosCuenta(int nroCuenta)
+	{
+		CuentaView cv = null;
+		Cuenta cuenta = buscarCuenta(nroCuenta);
+		if(cuenta != null)
+		{
+			cv = cuenta.getView();
+		}
+		return cv;
+	}
+	
+	public MovimientoView buscarDatosMovimiento(int nroMovimiento)
+	{
+		MovimientoView mv = null;
+		Movimiento movimiento = buscarMovimiento(nroMovimiento);
+		if(movimiento != null)
+		{
+			mv = movimiento.getView();
+		}
+		return mv;		
+	}
+	
+	private Movimiento buscarMovimiento(int nroMovimiento)
+	{
+		for (int i=0;i<cuentas.size();i++)
+		{
+			for(int j=0;j<cuentas.elementAt(i).movimientos.size();j++)
+			{
+				if (cuentas.elementAt(i).movimientos.elementAt(j).getNroMovimiento() == nroMovimiento)
+				{
+					return cuentas.elementAt(i).movimientos.elementAt(j);
+				}			
+			}
+		}
+		return null;
 	}
 	
 }

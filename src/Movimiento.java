@@ -63,5 +63,10 @@ public class Movimiento {
 		this.nroMovimiento = nroMovimiento;
 	}	
 	
+	public MovimientoView getView()
+	{
+		MovimientoView mv = new MovimientoView(this.fecha, this.nroMovimiento, this.monto, this.saldo, this.detalle);
+		return mv;
+	}
 	
 }

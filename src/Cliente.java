@@ -47,8 +47,7 @@ public class Cliente {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
-	}
-		
+	}		
 
 	public boolean sosCliente(String dni) {
 		return (this.dniCliente == dni);

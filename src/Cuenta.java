@@ -36,7 +36,13 @@ public abstract class Cuenta {
 		return cliente;
 	}
 	
-	//Métodos de negocio
+	public CuentaView getView()
+	{
+		CuentaView cv = new CuentaView(this.cliente, this.nroCuenta, this.saldoCuenta);
+		return cv;
+	}
+	
+	//Mï¿½todos de negocio
 	
 	public void depositar(float monto){
 		setSaldoCuenta(saldoCuenta + monto);

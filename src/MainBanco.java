@@ -5,8 +5,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Inserte aquí la descripción del tipo.
- * Fecha de creación: (31/08/2005 15:21:06)
+ * Inserte aquï¿½ la descripciï¿½n del tipo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:21:06)
  * @author: Maria Paula Sarasa
  */
 public class MainBanco 
@@ -20,8 +20,8 @@ public MainBanco()
 	banco = new Banco();
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void abrirCuenta()
 {
@@ -33,42 +33,52 @@ public void abrirCuenta()
 		System.out.println("---------------");
 		System.out.print("Ingrese DNI:");
 		String dni = reader.readLine();
-		System.out.print("Seleccione si la nueva cuenta sera Caja Ahorro o Cuenta Corriente (CA - CC- CU):");
+		System.out.print("Seleccione si la nueva cuenta serÃ¡ Caja Ahorro, Cuenta Corriente o Cuenta Universal (CA - CC- CU):");
 		String tipoCuenta = reader.readLine();
 		if (tipoCuenta.equalsIgnoreCase("CA"))
 		{
+			System.out.print("Ingrese ComisiÃ³n:");
+			String comision = reader.readLine();
+			System.out.print("Ingrese InterÃ©s:");
+			String interes = reader.readLine();
 			System.out.print("Ingrese Moneda:($ - d)");
 			String moneda = reader.readLine();
 			if (moneda.equals("$"))
 			{
-				int nro = banco.crearCajaAhorroPesos(Long.parseLong(dni));
-				System.out.println("El numero de su cuenta es: " + nro);
+				banco.crearCajaAhorroPesos(dni, Float.parseFloat(interes), Float.parseFloat(comision));
+				System.out.println("La cuenta fue creada satisfactoriamente.");
 			}
 			else
 			{
-				int nro = banco.crearCajaAhorroDolares(Long.parseLong(dni));
-				System.out.println("El numero de su cuenta es: " + nro);
-			}
+				banco.crearCajaAhorroDolares(dni, Float.parseFloat(interes), Float.parseFloat(comision));
+				System.out.println("La cuenta fue creada satisfactoriamente.");
+			}			
 		}
 		if (tipoCuenta.equalsIgnoreCase("CC"))
 		{
+			System.out.print("Ingrese ComisiÃ³n:");
+			String comision = reader.readLine();
+			System.out.print("Ingrese Descubierto:");
+			String descubierto = reader.readLine();
 			System.out.print("Ingrese Moneda:($ - d)");
 			String moneda = reader.readLine();
 			if (moneda.equals("$"))
 			{
-				int nro = banco.crearCuentaCorrientePesos(Long.parseLong(dni));
-				System.out.println("El numero de su cuenta es: " + nro);
+				banco.crearCuentaCorrientePesos(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
+				System.out.println("La cuenta fue creada satisfactoriamente.");
 			}
 			else
 			{
-				int nro = banco.crearCuentaCorrienteDolares(Long.parseLong(dni));
-				System.out.println("El numero de su cuenta es: " + nro);
+				banco.crearCuentaCorrienteDolares(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
+				System.out.println("La cuenta fue creada satisfactoriamente.");
 			}
 		}
 		else
 		{
-			int nro = banco.crearCuentaUniversal(Long.parseLong(dni));
-			System.out.println("El numero de su cuenta es: " + nro);
+			System.out.print("Ingrese InterÃ©s:");
+			String interes = reader.readLine();			
+			banco.crearCuentaUniversal(dni, Float.parseFloat(interes));
+			System.out.println("La cuenta fue creada satisfactoriamente.");
 		}
 			
 		mostrarMenu();
@@ -77,16 +87,16 @@ public void abrirCuenta()
 
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void debitarComisiones() 
 {
 	
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void depositar() 
 {
@@ -97,13 +107,12 @@ public void depositar()
 		System.out.println("DEPOSITAR");
 		System.out.println("---------------");
 		System.out.print("Ingrese nro Cuenta:");
-		String nroCta = reader.readLine();
+		String nroCuenta = reader.readLine();
 		System.out.print("Ingrese Monto");
 		String monto = reader.readLine();
-		
-		float nuevoSaldo= banco.depositar(Integer.parseInt(nroCta), Float.parseFloat(monto));
-			
-		System.out.println("El nuevo saldo es: " + nuevoSaldo);
+		banco.depositar(Integer.parseInt(nroCuenta), Float.parseFloat(monto));
+		CuentaView nuevoSaldo = banco.buscarDatosCuenta(Integer.parseInt(nroCuenta));			
+		System.out.println("El nuevo saldo es: " + nuevoSaldo.getSaldoCuenta());
 		mostrarMenu();
 	}
 	catch(Exception e)
@@ -113,8 +122,8 @@ public void depositar()
 
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void extraer() 
 {
@@ -134,7 +143,7 @@ public void crearCliente()
 		System.out.print("Ingrese Domicilio");
 		String domicilio = reader.readLine();
 		
-		banco.crearCliente(nombre, Long.parseLong(dni), domicilio);
+		banco.crearCliente(dni, nombre, domicilio);
 			
 		mostrarMenu();
 	}
@@ -145,16 +154,16 @@ public void crearCliente()
 
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:35:15)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:35:15)
  * @return demo.paula.Banco
  */
 public Banco getBanco() {
 	return banco;
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void listarCuentas()
 {
@@ -164,13 +173,15 @@ public void listarCuentas()
 		//Solicito informacion
 		System.out.println("LISTAR CUENTAS");
 		System.out.println("---------------");
+		System.out.print("Ingrese DNI:");
+		String dni = reader.readLine();
 		
-		Vector<CuentaView> cuentas = banco.getCuentas();
+		Vector<Cuenta> cuentas = banco.buscarCuentasCliente(dni); //CuentaView!!!
 		for (int i=0;i<cuentas.size();i++)
 		{
-			CuentaView c = (CuentaView)cuentas.elementAt(i);
-			System.out.println("NRO CUENTA: "+ c.getNro());
-			System.out.println("SALDO: "+ c.getSaldo());
+			Cuenta c = (Cuenta)cuentas.elementAt(i);
+			System.out.println("Nro. Cuenta: "+ c.getNroCuenta());
+			System.out.println("Saldo: "+ c.getSaldoCuenta());
 			System.out.println("----------------------------------------------------");			
 		}
 
@@ -181,19 +192,19 @@ public void listarCuentas()
 	}
 }
 /**
- * Inicia la aplicación.
- * @param args una matriz de argumentos de línea de mandatos
+ * Inicia la aplicaciï¿½n.
+ * @param args una matriz de argumentos de lï¿½nea de mandatos
  */
 public static void main(java.lang.String[] args) 
 {
-	// Inserte aquí código para iniciar la aplicación.
+	// Inserte aquï¿½ cï¿½digo para iniciar la aplicaciï¿½n.
 	MainBanco main = new MainBanco();
 	main.mostrarMenu();
 	
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:22:26)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:22:26)
  */
 public void mostrarMenu() 
 {
@@ -204,10 +215,10 @@ public void mostrarMenu()
 	System.out.println("-------------------------------------------------------");
 	System.out.println("1.- Crear Cliente");
 	System.out.println("2.- Abrir Cuenta");
-	System.out.println("3.- Listar cuentas barbudo");
+	System.out.println("3.- Listar cuentas");
 	System.out.println("4.- Depositar");
 	System.out.println("5.- Extraer");
-	System.out.println("6.- Consultar saldo barbudo");
+	System.out.println("6.- Consultar saldo");
 	System.out.println("7.- Consultar movimientos");
 	System.out.println("8.- Debitar mantenimiento");
 	System.out.println("9.- Transferir entre cuentas");
@@ -284,16 +295,16 @@ private void consultarSaldo() {
 	
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:27:02)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:27:02)
  */
 public void salir() 
 {
 	System.exit(0);
 }
 /**
- * Inserte aquí la descripción del método.
- * Fecha de creación: (31/08/2005 15:35:15)
+ * Inserte aquï¿½ la descripciï¿½n del mï¿½todo.
+ * Fecha de creaciï¿½n: (31/08/2005 15:35:15)
  * @param newBanco demo.paula.Banco
  */
 public void setBanco(Banco newBanco) {
