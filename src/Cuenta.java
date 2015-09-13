@@ -46,7 +46,7 @@ public abstract class Cuenta {
 	
 	public void depositar(float monto){
 		setSaldoCuenta(saldoCuenta + monto);
-		Movimiento mov = new Movimiento(monto, saldoCuenta, "Deposito");
+		Movimiento mov = new Movimiento(monto, "Deposito", saldoCuenta);
 		movimientos.add(mov);
 	}
 	

@@ -176,16 +176,18 @@ public class Banco
 		return cuenta.getSaldoCuenta();
 	}
 	
-	public void depositar(int nroCuenta, float monto)
+	public float depositar(int nroCuenta, float monto)
 	{
 		Cuenta cuenta = buscarCuenta(nroCuenta);
 		if(cuenta != null)
 		{
 			cuenta.depositar(monto);
 		}
+		
+		return cuenta.getSaldoCuenta();
 	}
 	
-	public void transferir(int nroCuentaOrigen, int nroCuentaDestino, float monto)
+	public float transferir(int nroCuentaOrigen, int nroCuentaDestino, float monto)
 	{
 		Cuenta origen = buscarCuenta(nroCuentaOrigen);
 		Cuenta destino = buscarCuenta(nroCuentaDestino);
@@ -193,11 +195,12 @@ public class Banco
 		{
 			origen.saldoCuenta = origen.saldoCuenta - monto;
 			destino.saldoCuenta = destino.saldoCuenta + monto;
-			Movimiento mov = new Movimiento(monto, origen.saldoCuenta, "Transferencia");
-			Movimiento mov2 = new Movimiento(monto, destino.saldoCuenta, "Transferencia");
+			Movimiento mov = new Movimiento(monto, "Transferencia", origen.saldoCuenta);
+			Movimiento mov2 = new Movimiento(monto, "Transferencia", destino.saldoCuenta);
 			origen.movimientos.add(mov);
 			destino.movimientos.add(mov2);						
 		}
+		return origen.getSaldoCuenta();
 	}
 	
 	private Cuenta buscarCuenta(int nroCuenta)

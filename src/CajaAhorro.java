@@ -30,7 +30,7 @@ public class CajaAhorro extends Cuenta {
 	public void extraer(float monto) {
 		if(saldoCuenta >= monto){
 			saldoCuenta = saldoCuenta - monto;
-			Movimiento mov = new Movimiento(monto, saldoCuenta, "Extraccion");
+			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
 		}
 	}

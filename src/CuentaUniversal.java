@@ -2,7 +2,12 @@
 public class CuentaUniversal extends Cuenta {
 	
 	private float interes;
-
+	
+	public CuentaUniversal(Cliente cliente, float interes) {
+		super(cliente);
+		this.interes = interes;
+	}
+	
 	public float getInteres() {
 		return interes;
 	}
@@ -11,16 +16,11 @@ public class CuentaUniversal extends Cuenta {
 		this.interes = interes;
 	}
 
-	public CuentaUniversal(Cliente cliente, float interes) {
-		super(cliente);
-		this.interes = interes;
-	}
-
 	@Override
 	public void extraer(float monto) {
 		if(saldoCuenta >= monto){
 			saldoCuenta = saldoCuenta - monto;
-			Movimiento mov = new Movimiento(monto, saldoCuenta, "Extraccion");
+			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
 		}
 	}

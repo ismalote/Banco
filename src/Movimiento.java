@@ -11,7 +11,7 @@ public class Movimiento {
 	private int nroMovimiento;
 	private static int proxNroMovimiento;	
 	
-	public Movimiento(float monto, float saldo, String detalle){
+	public Movimiento(float monto, String detalle, float saldo){
 		this.monto = monto;
 		this.detalle = detalle;
 		this.saldo = saldo;

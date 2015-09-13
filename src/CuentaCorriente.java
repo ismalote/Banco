@@ -4,6 +4,12 @@ public class CuentaCorriente extends Cuenta {
 	private float descubierto;
 	private float comision;
 	
+	public CuentaCorriente(Cliente cliente, float descubierto, float comision) {
+		super(cliente);
+		this.descubierto = descubierto;
+		this.comision = comision;
+	}
+	
 	public float getDescubierto() {
 		return descubierto;
 	}
@@ -20,24 +26,18 @@ public class CuentaCorriente extends Cuenta {
 		this.comision = comision;
 	}
 
-	public CuentaCorriente(Cliente cliente, float descubierto, float comision) {
-		super(cliente);
-		this.descubierto = descubierto;
-		this.comision = comision;
-	}
-
 	@Override
 	public void extraer(float monto) {
 		if(monto <= saldoCuenta){
 			saldoCuenta = saldoCuenta - monto;
-			Movimiento mov = new Movimiento(monto, saldoCuenta, "Extraccion");
+			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
 		}else if(monto <= saldoCuenta+descubierto){
 			float montoAux = monto;
 			montoAux = montoAux - saldoCuenta;
 			saldoCuenta = 0;
 			descubierto = descubierto - montoAux;
-			Movimiento mov = new Movimiento(monto, saldoCuenta, "Extraccion");
+			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
 		}else{
 			System.out.println("Saldo más descubierto es insuficiente para realizar la operación.");
