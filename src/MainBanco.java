@@ -176,7 +176,7 @@ public void listarCuentas()
 		System.out.print("Ingrese DNI:");
 		String dni = reader.readLine();
 		
-		Vector<Cuenta> cuentas = banco.buscarCuentasCliente(dni); //CuentaView!!!
+		Vector<Cuenta> cuentas = banco.buscarDatosCuentasCliente(dni); //CuentaView!!!
 		for (int i=0;i<cuentas.size();i++)
 		{
 			Cuenta c = (Cuenta)cuentas.elementAt(i);

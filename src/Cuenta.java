@@ -53,5 +53,6 @@ public abstract class Cuenta {
 	public abstract void extraer(float monto);
 	
 	public abstract boolean podesExtraer(float monto);
+
 	
 }

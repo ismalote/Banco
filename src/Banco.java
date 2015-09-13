@@ -25,17 +25,6 @@ public class Banco
 			System.out.println("Cliente " + dni + " ya existe.");
 		}
 	}
-
-	private Cliente buscarCliente(String dni) 
-	{
-		for (int i=0;i<clientes.size();i++)
-		{
-			if (clientes.elementAt(i).sosCliente(dni)){
-				return clientes.elementAt(i);
-			}
-		}
-		return null;
-	}
 	
 	public void modificarCliente(String dni, String nombre, String domicilio)
 	{
@@ -52,12 +41,29 @@ public class Banco
 		}		
 	}
 	
-	public void desactivarCliente(String dni)
+	public void bajaCliente(String dni)
 	{
+		boolean noDarDeBaja = false;
 		Cliente c = buscarCliente(dni);
 		if(c!=null)
 		{
-			c.setEstado(false);
+			Vector<Cuenta> ctas = buscarCuentasCliente(dni);
+			if(ctas != null){
+				for(Cuenta cuenta : ctas)
+				{
+					if(cuenta.getSaldoCuenta() > 0)
+					{
+						noDarDeBaja = true;
+					}
+				}
+			}
+			if(!noDarDeBaja)
+			{
+				c.setEstado(false);
+			}else
+			{
+				System.out.println("Usted posee saldo en alguna de sus cuentas");
+			}
 		}
 	}
 	
@@ -69,22 +75,51 @@ public class Banco
 			c.setEstado(true);
 		}
 	}
-
-	public Vector<Cuenta> buscarCuentasCliente(String dni)
+	
+	public ClienteView buscarDatosCliente(String dni)
 	{
-		Vector<Cuenta> cuenta = new Vector<Cuenta>();
+		ClienteView cv = null;
 		Cliente cliente = buscarCliente(dni);
-		if(cliente != null)
-		{		
-			for(int i = 0; i<cuentas.size(); i++){
-				if(cuentas.elementAt(i).getCliente().getDniCliente().equals(dni)){
-					cuenta.add(cuentas.elementAt(i));
-				}
-			}
-		}
-		return cuenta;
+		if(cliente != null){
+			cv = cliente.getView();
+		}		
+		return cv;
 	}
 	
+	private Cliente buscarCliente(String dni) 
+	{
+		for (int i=0;i<clientes.size();i++)
+		{
+			if (clientes.elementAt(i).sosCliente(dni)){
+				return clientes.elementAt(i);
+			}
+		}
+		return null;
+	}
+
+	private Vector<Cuenta> buscarCuentasCliente(String dni)
+	{
+		Vector<Cuenta> cuentas = new Vector<Cuenta>();
+		Cliente cliente = buscarCliente(dni);
+		if(cliente != null)
+		{	
+			cuentas = getCuentasFromCliente(cliente, cuentas);
+		}
+		return cuentas;
+	}
+	
+	private Vector<Cuenta> getCuentasFromCliente(Cliente cliente, Vector<Cuenta> cuentas) {
+		String dni = cliente.getDniCliente();
+		for(Cuenta cta : cuentas){
+			String dniCuenta = cta.getCliente().getDniCliente();
+			if(dni == dniCuenta){
+				cuentas.add(cta);
+			}
+		}
+		
+		return cuentas;
+	}
+
 	public void crearCajaAhorroPesos(String dni, float interes, float comision)
 	{
 		Cliente cliente = buscarCliente(dni);
@@ -175,16 +210,6 @@ public class Banco
 		return null;
 	}
 	
-	public ClienteView buscarDatosCliente(String dni)
-	{
-		ClienteView cv = null;
-		Cliente cliente = buscarCliente(dni);
-		if(cliente != null){
-			cv = cliente.getView();
-		}		
-		return cv;
-	}
-	
 	public CuentaView buscarDatosCuenta(int nroCuenta)
 	{
 		CuentaView cv = null;
@@ -219,6 +244,11 @@ public class Banco
 				}			
 			}
 		}
+		return null;
+	}
+
+	public Vector<Cuenta> buscarDatosCuentasCliente(String dni) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
