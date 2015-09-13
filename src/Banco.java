@@ -165,13 +165,15 @@ public class Banco
 		}
 	}
 	
-	public void extraer(int nroCuenta, float monto)
+	public float extraer(int nroCuenta, float monto)
 	{
 		Cuenta cuenta = buscarCuenta(nroCuenta);
 		if(cuenta != null)
 		{
 			cuenta.extraer(monto);
 		}
+		
+		return cuenta.getSaldoCuenta();
 	}
 	
 	public void depositar(int nroCuenta, float monto)
