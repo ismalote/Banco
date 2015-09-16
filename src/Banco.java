@@ -47,9 +47,9 @@ public class Banco
 		Cliente c = buscarCliente(dni);
 		if(c!=null)
 		{
-			Vector<Cuenta> ctas = buscarCuentasCliente(dni);
+			Vector<CuentaView> ctas = buscarCuentasCliente(dni);
 			if(ctas != null){
-				for(Cuenta cuenta : ctas)
+				for(CuentaView cuenta : ctas)
 				{
 					if(cuenta.getSaldoCuenta() > 0)
 					{
@@ -97,27 +97,29 @@ public class Banco
 		return null;
 	}
 
-	private Vector<Cuenta> buscarCuentasCliente(String dni)
+	public Vector<CuentaView> buscarCuentasCliente(String dni)
 	{
-		Vector<Cuenta> cuentas = new Vector<Cuenta>();
+		Vector<CuentaView> ctaView = new Vector<CuentaView>();
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null)
 		{	
-			cuentas = getCuentasFromCliente(cliente, cuentas);
+			ctaView = getCuentasViewFromCliente(cliente);
 		}
-		return cuentas;
+		
+		return ctaView;
 	}
 	
-	private Vector<Cuenta> getCuentasFromCliente(Cliente cliente, Vector<Cuenta> cuentas) {
+	private Vector<CuentaView> getCuentasViewFromCliente(Cliente cliente) {
+		Vector<CuentaView> ctasView = new Vector<CuentaView>();
 		String dni = cliente.getDniCliente();
-		for(Cuenta cta : cuentas){
+		for(Cuenta cta : this.cuentas){
 			String dniCuenta = cta.getCliente().getDniCliente();
-			if(dni == dniCuenta){
-				cuentas.add(cta);
+			if(dni.equalsIgnoreCase(dniCuenta)){
+				ctasView.add(cta.getView());
 			}
 		}
 		
-		return cuentas;
+		return ctasView;
 	}
 
 	public int crearCajaAhorroPesos(String dni, float interes, float comision)
@@ -285,11 +287,6 @@ public class Banco
 				}			
 			}
 		}
-		return null;
-	}
-
-	public Vector<Cuenta> buscarDatosCuentasCliente(String dni) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

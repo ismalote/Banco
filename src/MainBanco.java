@@ -196,13 +196,18 @@ public void listarCuentas()
 		System.out.print("Ingrese DNI:");
 		String dni = reader.readLine();
 		
-		Vector<Cuenta> cuentas = banco.buscarDatosCuentasCliente(dni); //CuentaView!!!
-		for (int i=0;i<cuentas.size();i++)
-		{
-			Cuenta c = (Cuenta)cuentas.elementAt(i);
-			System.out.println("Nro. Cuenta: "+ c.getNroCuenta());
-			System.out.println("Saldo: "+ c.getSaldoCuenta());
-			System.out.println("----------------------------------------------------");			
+		Vector<CuentaView> cuentas = banco.buscarCuentasCliente(dni);
+		
+		if(cuentas.size() > 0){
+			for (int i=0;i<cuentas.size();i++)
+			{
+				CuentaView c = cuentas.elementAt(i);
+				System.out.println("Nro. Cuenta: "+ c.getNroCuenta());
+				System.out.println("Saldo: "+ c.getSaldoCuenta());
+				System.out.println("----------------------------------------------------");			
+			}
+		}else{
+			System.out.println("El cliente no posee cuentas.");
 		}
 
 		mostrarMenu();
