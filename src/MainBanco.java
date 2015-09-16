@@ -33,28 +33,36 @@ public void abrirCuenta()
 		System.out.println("---------------");
 		System.out.print("Ingrese DNI:");
 		String dni = reader.readLine();
-		System.out.print("Seleccione si la nueva cuenta será Caja Ahorro, Cuenta Corriente o Cuenta Universal (CA - CC- CU):");
+		System.out.print("Seleccione si la nueva cuenta sera Caja Ahorro, Cuenta Corriente o Cuenta Universal (CA - CC- CU):");
 		String tipoCuenta = reader.readLine();
 		if (tipoCuenta.equalsIgnoreCase("CA"))
 		{
-			System.out.print("Ingrese Comisión:");
+			System.out.print("Ingrese Comision: ");
 			String comision = reader.readLine();
-			System.out.print("Ingrese Interés:");
+			System.out.print("Ingrese Interes: ");
 			String interes = reader.readLine();
-			System.out.print("Ingrese Moneda:($ - d)");
+			System.out.print("Ingrese Moneda: ($ - d)");
 			String moneda = reader.readLine();
 			if (moneda.equals("$"))
 			{
-				banco.crearCajaAhorroPesos(dni, Float.parseFloat(interes), Float.parseFloat(comision));
-				System.out.println("La cuenta fue creada satisfactoriamente.");
+				int nro = banco.crearCajaAhorroPesos(dni, Float.parseFloat(interes), Float.parseFloat(comision));
+				if(nro != -1){
+					System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
+				}else{
+					System.out.println("Cliente inexistente");
+				}
 			}
 			else
 			{
-				banco.crearCajaAhorroDolares(dni, Float.parseFloat(interes), Float.parseFloat(comision));
-				System.out.println("La cuenta fue creada satisfactoriamente.");
+				int nro = banco.crearCajaAhorroDolares(dni, Float.parseFloat(interes), Float.parseFloat(comision));
+				if(nro != -1){
+					System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
+				}else{
+					System.out.println("Cliente inexistente");
+				}
 			}			
 		}
-		if (tipoCuenta.equalsIgnoreCase("CC"))
+		else if (tipoCuenta.equalsIgnoreCase("CC"))
 		{
 			System.out.print("Ingrese Comisión:");
 			String comision = reader.readLine();
@@ -64,21 +72,33 @@ public void abrirCuenta()
 			String moneda = reader.readLine();
 			if (moneda.equals("$"))
 			{
-				banco.crearCuentaCorrientePesos(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
-				System.out.println("La cuenta fue creada satisfactoriamente.");
+				int nro = banco.crearCuentaCorrientePesos(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
+				if(nro != -1){
+					System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
+				}else{
+					System.out.println("Cliente inexistente");
+				}
 			}
 			else
 			{
-				banco.crearCuentaCorrienteDolares(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
-				System.out.println("La cuenta fue creada satisfactoriamente.");
+				int nro = banco.crearCuentaCorrienteDolares(dni, Float.parseFloat(descubierto), Float.parseFloat(comision));
+				if(nro != -1){
+					System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
+				}else{
+					System.out.println("Cliente inexistente");
+				}
 			}
 		}
 		else
 		{
 			System.out.print("Ingrese Interés:");
 			String interes = reader.readLine();			
-			banco.crearCuentaUniversal(dni, Float.parseFloat(interes));
-			System.out.println("La cuenta fue creada satisfactoriamente.");
+			int nro = banco.crearCuentaUniversal(dni, Float.parseFloat(interes));
+			if(nro != -1){
+				System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
+			}else{
+				System.out.println("Cliente inexistente");
+			}
 		}
 			
 		mostrarMenu();

@@ -120,48 +120,84 @@ public class Banco
 		return cuentas;
 	}
 
-	public void crearCajaAhorroPesos(String dni, float interes, float comision)
+	public int crearCajaAhorroPesos(String dni, float interes, float comision)
 	{
+		CajaAhorroPesos cap = null;
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null){
-			CajaAhorroPesos cap = new CajaAhorroPesos(cliente, interes, comision);
+			cap = new CajaAhorroPesos(cliente, interes, comision);
 			cuentas.add(cap);			
 		}
+		
+		if(cap != null){
+			return cap.getNroCuenta();
+		}else{
+			return -1;
+		}
 	}
 	
-	public void crearCajaAhorroDolares(String dni, float interes, float comision)
+	public int crearCajaAhorroDolares(String dni, float interes, float comision)
 	{
+		
+		CajaAhorroDolares cad = null;
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null){
-			CajaAhorroDolares cad = new CajaAhorroDolares(cliente, interes, comision);
+			cad = new CajaAhorroDolares(cliente, interes, comision);
 			cuentas.add(cad);
 		}
+		
+		if(cad != null){
+			return cad.getNroCuenta();
+		}else{
+			return -1;
+		}
 	}
 	
-	public void crearCuentaCorrientePesos(String dni, float descubierto, float comision)
+	public int crearCuentaCorrientePesos(String dni, float descubierto, float comision)
 	{
+		CuentaCorrientePesos ccp = null;
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null){
-			CuentaCorrientePesos ccp = new CuentaCorrientePesos(cliente, descubierto, comision);
+			ccp = new CuentaCorrientePesos(cliente, descubierto, comision);
 			cuentas.add(ccp);
 		}
-	}
-	
-	public void crearCuentaCorrienteDolares(String dni, float descubierto, float comision)
-	{
-		Cliente cliente = buscarCliente(dni);
-		if(cliente != null){
-			CuentaCorrienteDolares ccd = new CuentaCorrienteDolares(cliente, descubierto, comision);
-			cuentas.add(ccd);
+		
+		if(ccp != null){
+			return ccp.getNroCuenta();
+		}else{
+			return -1;
 		}
 	}
 	
-	public void crearCuentaUniversal(String dni, float interes)
+	public int crearCuentaCorrienteDolares(String dni, float descubierto, float comision)
 	{
+		CuentaCorrienteDolares ccd = null;
 		Cliente cliente = buscarCliente(dni);
 		if(cliente != null){
-			CuentaUniversal cu = new CuentaUniversal(cliente, interes);
+			ccd = new CuentaCorrienteDolares(cliente, descubierto, comision);
+			cuentas.add(ccd);
+		}
+		
+		if(ccd != null){
+			return ccd.getNroCuenta();
+		}else{
+			return -1;
+		}
+	}
+	
+	public int crearCuentaUniversal(String dni, float interes)
+	{
+		CuentaUniversal cu = null;
+		Cliente cliente = buscarCliente(dni);
+		if(cliente != null){
+			cu = new CuentaUniversal(cliente, interes);
 			cuentas.add(cu);
+		}
+		
+		if(cu != null){
+			return cu.getNroCuenta();
+		}else{
+			return -1;
 		}
 	}
 	

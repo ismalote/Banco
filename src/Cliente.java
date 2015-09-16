@@ -50,7 +50,7 @@ public class Cliente {
 	}		
 
 	public boolean sosCliente(String dni) {
-		return (this.dniCliente == dni);
+		return (this.dniCliente.equalsIgnoreCase(dni));
 	}
 
 	public ClienteView getView()
