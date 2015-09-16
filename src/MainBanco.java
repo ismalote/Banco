@@ -264,9 +264,8 @@ public void mostrarMenu()
 	System.out.println("5.- Extraer");
 	System.out.println("6.- Consultar saldo");
 	System.out.println("7.- Consultar movimientos");
-	System.out.println("8.- Debitar mantenimiento");
-	System.out.println("9.- Transferir entre cuentas");
-	System.out.println("A.- Salir");
+	System.out.println("8.- Transferir entre cuentas");
+	System.out.println("Q.- Salir");
 	System.out.println("-------------------------------------------------------");
 	System.out.print("Opcion:");
 	try
@@ -305,15 +304,19 @@ public void mostrarMenu()
 		  		break;
 		  	}
 		  	case '8' : {
-		  		this.debitarMantenimiento();
-		  		break;
-		  	}
-		  	case '9' : {
 		  		this.transferirEntreCuentas();
 		  		break;
 		  	}
-		  	case 'A' : {
+		  	case 'Q': {
 		  		this.salir();
+		  		break;
+		  	}
+		  	case 'q': {
+		  		this.salir();
+		  		break;
+		  	}
+		  	default : {
+		  		mostrarMenu();
 		  	}
 	  	}
 	}
@@ -326,17 +329,49 @@ private void transferirEntreCuentas() {
 	// TODO Auto-generated method stub
 	
 }
-private void debitarMantenimiento() {
-	// TODO Auto-generated method stub
-	
-}
 private void consultarMovimientos() {
-	// TODO Auto-generated method stub
-	
+	try
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		//Solicito informacion
+		System.out.println("CONSULTAR SALDO");
+		System.out.println("---------------");
+		System.out.print("Ingrese nro Cuenta: ");
+		String nroCuenta = reader.readLine();
+		CuentaView saldo = banco.buscarDatosCuenta(Integer.parseInt(nroCuenta));
+		if(saldo != null){
+			System.out.println("Su saldo es: " + saldo.getSaldoCuenta());
+		}else{
+			System.out.println("Cuenta inexistente.");
+		}
+		mostrarMenu();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
 }
 private void consultarSaldo() {
-	// TODO Auto-generated method stub
-	
+	try
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		//Solicito informacion
+		System.out.println("CONSULTAR SALDO");
+		System.out.println("---------------");
+		System.out.print("Ingrese nro Cuenta: ");
+		String nroCuenta = reader.readLine();
+		CuentaView saldo = banco.buscarDatosCuenta(Integer.parseInt(nroCuenta));
+		if(saldo != null){
+			System.out.println("Su saldo es: " + saldo.getSaldoCuenta());
+		}else{
+			System.out.println("Cuenta inexistente.");
+		}
+		mostrarMenu();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
 }
 /**
  * Inserte aqu� la descripci�n del m�todo.
