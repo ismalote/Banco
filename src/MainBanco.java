@@ -85,7 +85,7 @@ public void abrirCuenta()
 				if(nro != -1){
 					System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
 				}else{
-					System.out.println("Cliente inexistente");
+					System.out.println("Cliente inexistente.");
 				}
 			}
 		}
@@ -97,7 +97,7 @@ public void abrirCuenta()
 			if(nro != -1){
 				System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
 			}else{
-				System.out.println("Cliente inexistente");
+				System.out.println("Cliente inexistente.");
 			}
 		}
 			
@@ -126,9 +126,9 @@ public void depositar()
 		//Solicito informacion
 		System.out.println("DEPOSITAR");
 		System.out.println("---------------");
-		System.out.print("Ingrese nro Cuenta:");
+		System.out.print("Ingrese nro Cuenta: ");
 		String nroCuenta = reader.readLine();
-		System.out.print("Ingrese Monto");
+		System.out.print("Ingrese Monto: ");
 		String monto = reader.readLine();
 		banco.depositar(Integer.parseInt(nroCuenta), Float.parseFloat(monto));
 		CuentaView nuevoSaldo = banco.buscarDatosCuenta(Integer.parseInt(nroCuenta));			
@@ -147,6 +147,25 @@ public void depositar()
  */
 public void extraer() 
 {
+	try
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		//Solicito informacion
+		System.out.println("EXTRAER");
+		System.out.println("---------------");
+		System.out.print("Ingrese nro Cuenta: ");
+		String nroCuenta = reader.readLine();
+		System.out.print("Ingrese Monto: ");
+		String monto = reader.readLine();
+		banco.extraer(Integer.parseInt(nroCuenta), Float.parseFloat(monto));
+		CuentaView nuevoSaldo = banco.buscarDatosCuenta(Integer.parseInt(nroCuenta));
+		System.out.println("El saldo actual es: " + nuevoSaldo.getSaldoCuenta());
+		mostrarMenu();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
 }
 public void crearCliente() 
 {
@@ -156,11 +175,11 @@ public void crearCliente()
 		//Solicito informacion
 		System.out.println("ALTA DE CLIENTE");
 		System.out.println("---------------");
-		System.out.print("Ingrese DNI:");
+		System.out.print("Ingrese DNI: ");
 		String dni = reader.readLine();
-		System.out.print("Ingrese Nombre");
+		System.out.print("Ingrese Nombre: ");
 		String nombre = reader.readLine();
-		System.out.print("Ingrese Domicilio");
+		System.out.print("Ingrese Domicilio: ");
 		String domicilio = reader.readLine();
 		
 		banco.crearCliente(dni, nombre, domicilio);

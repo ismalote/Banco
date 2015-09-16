@@ -22,6 +22,8 @@ public class CuentaUniversal extends Cuenta {
 			saldoCuenta = saldoCuenta - monto;
 			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
+		}else{
+			System.out.println("El saldo es insuficiente.");
 		}
 	}
 	

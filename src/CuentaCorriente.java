@@ -39,6 +39,7 @@ public class CuentaCorriente extends Cuenta {
 			descubierto = descubierto - montoAux;
 			Movimiento mov = new Movimiento(monto, "Extraccion", saldoCuenta);
 			movimientos.add(mov);
+			System.out.println("Saldo insuficiente, se desconto de su descubierto.");
 		}else{
 			System.out.println("Saldo más descubierto es insuficiente para realizar la operación.");
 		}
