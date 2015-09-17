@@ -7,6 +7,7 @@ public abstract class Cuenta {
 	protected int nroCuenta;
 	protected Cliente cliente;
 	protected Vector<Movimiento> movimientos;
+
 	private static int proxNroCuenta;
 	
 	private static int getProxNroCuenta(){
@@ -40,6 +41,10 @@ public abstract class Cuenta {
 	{
 		CuentaView cv = new CuentaView(this.cliente, this.nroCuenta, this.saldoCuenta);
 		return cv;
+	}
+	
+	public Vector<Movimiento> getMovimientos() {
+		return movimientos;
 	}
 	
 	//M�todos de negocio

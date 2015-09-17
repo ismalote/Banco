@@ -206,23 +206,25 @@ public class Banco
 	public float extraer(int nroCuenta, float monto)
 	{
 		Cuenta cuenta = buscarCuenta(nroCuenta);
+		float s = -1;
 		if(cuenta != null)
 		{
 			cuenta.extraer(monto);
-		}
-		
-		return cuenta.getSaldoCuenta();
+			s = cuenta.getSaldoCuenta();
+		}		
+		return s;
 	}
 	
 	public float depositar(int nroCuenta, float monto)
 	{
 		Cuenta cuenta = buscarCuenta(nroCuenta);
+		float s = -1;
 		if(cuenta != null)
 		{
 			cuenta.depositar(monto);
+			s = cuenta.getSaldoCuenta();
 		}
-		
-		return cuenta.getSaldoCuenta();
+		return s;
 	}
 	
 	public float transferir(int nroCuentaOrigen, int nroCuentaDestino, float monto)
@@ -288,6 +290,18 @@ public class Banco
 			}
 		}
 		return null;
+	}
+	
+	public Vector<MovimientoView> listarMovimientosPorCuenta(int nroCuenta){
+		Vector<MovimientoView> movView = new Vector<MovimientoView>();
+		Cuenta cta = buscarCuenta(nroCuenta);
+		if(cta != null){
+			Vector<Movimiento> mov = cta.getMovimientos();			
+			for(int i = 0; i < mov.size();i++){
+				movView.add(mov.elementAt(i).getView());
+			}
+		}
+		return movView;
 	}
 	
 }
