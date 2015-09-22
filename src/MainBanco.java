@@ -29,9 +29,9 @@ public class MainBanco
 			//Solicito informacion
 			System.out.println("ALTA DE CUENTA");
 			System.out.println("---------------");
-			System.out.print("Ingrese DNI:");
+			System.out.print("Ingrese DNI: ");
 			String dni = reader.readLine();
-			System.out.print("Seleccione si la nueva cuenta sera Caja Ahorro, Cuenta Corriente o Cuenta Universal (CA - CC- CU):");
+			System.out.print("Seleccione si la nueva cuenta sera Caja Ahorro, Cuenta Corriente o Cuenta Universal (CA - CC- CU): ");
 			String tipoCuenta = reader.readLine();
 			if (tipoCuenta.equalsIgnoreCase("CA"))
 			{
@@ -39,7 +39,7 @@ public class MainBanco
 				String comision = reader.readLine();
 				System.out.print("Ingrese Interes: ");
 				String interes = reader.readLine();
-				System.out.print("Ingrese Moneda: ($ - d)");
+				System.out.print("Ingrese Moneda ($ - d): ");
 				String moneda = reader.readLine();
 				if (moneda.equals("$"))
 				{
@@ -47,7 +47,7 @@ public class MainBanco
 					if(nro != -1){
 						System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
 					}else{
-						System.out.println("Cliente inexistente");
+						System.out.println("Cliente inexistente.");
 					}
 				}
 				else
@@ -56,17 +56,17 @@ public class MainBanco
 					if(nro != -1){
 						System.out.println("La cuenta numero: " + nro +  " fue creada satisfactoriamente.");
 					}else{
-						System.out.println("Cliente inexistente");
+						System.out.println("Cliente inexistente.");
 					}
 				}			
 			}
 			else if (tipoCuenta.equalsIgnoreCase("CC"))
 			{
-				System.out.print("Ingrese Comisión:");
+				System.out.print("Ingrese Comisión: ");
 				String comision = reader.readLine();
-				System.out.print("Ingrese Descubierto:");
+				System.out.print("Ingrese Descubierto: ");
 				String descubierto = reader.readLine();
-				System.out.print("Ingrese Moneda:($ - d)");
+				System.out.print("Ingrese Moneda ($ - d): ");
 				String moneda = reader.readLine();
 				if (moneda.equals("$"))
 				{
@@ -89,7 +89,7 @@ public class MainBanco
 			}
 			else
 			{
-				System.out.print("Ingrese Interés:");
+				System.out.print("Ingrese Interés: ");
 				String interes = reader.readLine();			
 				int nro = banco.crearCuentaUniversal(dni, Float.parseFloat(interes));
 				if(nro != -1){
@@ -247,8 +247,7 @@ public class MainBanco
 	{
 		// Inserte aqu� c�digo para iniciar la aplicaci�n.
 		MainBanco main = new MainBanco();
-		main.mostrarMenu();
-		
+		main.mostrarMenu();		
 	}
 	/**
 	 * Inserte aqu� la descripci�n del m�todo.
@@ -272,7 +271,7 @@ public class MainBanco
 		System.out.println("8.- Transferir entre cuentas");
 		System.out.println("Q.- Salir");
 		System.out.println("-------------------------------------------------------");
-		System.out.print("Opcion:");
+		System.out.print("Opcion: ");
 		try
 		{
 			char s = (char)reader.read();
@@ -330,7 +329,45 @@ public class MainBanco
 	
 	}
 	private void transferirEntreCuentas() {
-		// TODO Auto-generated method stub
+		try
+		{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("TRANSFERENCIA");
+			System.out.println("---------------");
+			System.out.print("Ingrese Nro Cuenta Origen: ");
+			String origen = reader.readLine();
+			System.out.print("Ingrese Nro Cuenta Destino: ");
+			String destino = reader.readLine();
+			System.out.print("Ingrese Nro Monto a transferir: ");
+			String monto = reader.readLine();
+			CuentaView datosOrigen = banco.buscarDatosCuenta(Integer.parseInt(origen));
+			CuentaView datosDestino = banco.buscarDatosCuenta(Integer.parseInt(destino));
+			if(datosOrigen == null)
+			{
+				System.out.println("La cuenta origen no existe.");
+				mostrarMenu();
+			}
+			if(datosDestino == null)
+			{
+				System.out.println("La cuenta destino no existe.");
+				mostrarMenu();
+			}
+			float saldoAnterior = datosOrigen.getSaldoCuenta();
+			float saldoPosterior = banco.transferir(Integer.parseInt(origen), Integer.parseInt(destino), Float.parseFloat(monto));
+			if(saldoAnterior == saldoPosterior)
+			{
+				System.out.println("Operación cancelada. No dispone de fondos para realizar la transferencia.");
+			}
+			else
+			{
+				System.out.println("Operación exitosa. Su saldo actual es de " + saldoPosterior);
+			}
+			mostrarMenu();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 	private void consultarMovimientos() {
